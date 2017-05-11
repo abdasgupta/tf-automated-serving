@@ -88,11 +88,6 @@ RUN git clone -b ppc-bazel https://github.com/abdasgupta/bazel-ppc64le.git /baze
     cd / && \
     rm -rf /root/.cache /bazel
 
-# To build the wheel file for inception-export so that inception-export.py can run standalone
-RUN git clone https://github.com/abdasgupta/tf-automated-serving.git /tf-automated-serving && \
-    cd /tf-automated-serving/inception && \
-    bazel build //inception:build-pip-package
-
 ENV CI_BUILD_PYTHON python
 
 RUN git clone -b ppc-tensorflow-serving --recurse-submodules https://github.com/abdasgupta/tensorflow-serving-ppc64le /tensorflow-serving && \
@@ -105,5 +100,10 @@ RUN git clone -b ppc-tensorflow-serving --recurse-submodules https://github.com/
     rm -rf /root/.cache /tensorflow-serving
 
 RUN rm -rf /root/.cache
+
+# To build the wheel file for inception-export so that inception-export.py can run standalone
+RUN git clone https://github.com/abdasgupta/tf-automated-serving.git /tf-automated-serving && \
+    cd /tf-automated-serving/inception && \
+    bazel build //inception:build-pip-package
 
 CMD ["echo Model Server Built"]

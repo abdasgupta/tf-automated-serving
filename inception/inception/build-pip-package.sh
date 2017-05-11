@@ -46,7 +46,6 @@ function main() {
   mkdir -p ${DEST}
   cp dist/* ${DEST}
   popd
-  tree
   rm -rf ${TMPDIR}
   echo $(date) : "=== Output wheel file is in: ${DEST}"
 }
