@@ -152,6 +152,14 @@ py_binary(
 )
 
 sh_binary(
+    name = "build-pip-package",
+    srcs = ["build-pip-package.sh"],
+    data = [
+        ":inception",
+    ],
+)
+
+sh_binary(
     name = "download_and_preprocess_flowers",
     srcs = ["data/download_and_preprocess_flowers.sh"],
     data = [
