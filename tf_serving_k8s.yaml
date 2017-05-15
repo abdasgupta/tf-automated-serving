@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: tf-serving-eployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: tf-serving
+    spec:
+      containers:
+      - name: tf-serving-cont
+        image: tf-model-server
+        imagePullPolicy: "IfNotPresent"
+        command:
+        - /bin/sh
+        - -c
+        args:
+        - /tensorflow_model_server --port=9000 --use_saved_model=false --model_name=inception --model_base_path=/inception_export/
+        ports:
+        - containerPort: 9000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: tf-serving-svc
+  name: tf-serving-svc
+spec:
+  ports:
+  - port: 9000
+  selector:
+    app: tf-serving
