@@ -96,10 +96,10 @@ RUN git clone -b ppc-tensorflow-serving --recurse-submodules https://github.com/
     cd .. && \
     bazel build -j `nproc` --ram_utilization_factor 50 -c opt tensorflow_serving/... && \
     cp bazel-bin/tensorflow_serving/model_servers/tensorflow_model_server / && \
-    cd / && \
-    rm -rf /root/.cache /tensorflow-serving
-
-RUN rm -rf /root/.cache
+    rm -rf /root/.cache && \
+    # Provided support to install prediction service from tensorflow serving as a wheel file,so
+    # that user can write her own inception client without building tensorflow serving again.
+    bazel build //tensorflow_serving/example:build-pip-package
 
 # To build the wheel file for inception-export so that inception-export.py can run standalone
 RUN git clone https://github.com/abdasgupta/tf-automated-serving.git /tf-automated-serving && \

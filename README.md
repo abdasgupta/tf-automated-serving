@@ -7,3 +7,8 @@ $ docker build -t tf-model-server -f Dockerfile .
 ```bash
 $ docker run -v /foo:/foo tf-model-server /bin/bash -c "cd /tf-automated-serving/inception && bazel-bin/inception/build-pip-package /foo"
 ```
+# To collect the wheel file for inception client
+```bash
+$ docker run -v /foo:/foo tf-model-server /bin/bash -c "cd /tensorflow-serving && bazel-bin/tensorflow_serving/example/build-pip-package.runfiles/tf_serving/tensorflow_serving/example/build-pip-package /foo"
+```
+
